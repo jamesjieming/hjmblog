@@ -1,0 +1,78 @@
+{% extends "base_main.html" %}
+{% load comments_extras %}
+    {% block ext_css %}
+  <link href="https://cdn.bootcss.com/highlight.js/9.15.8/styles/github.min.css" rel="stylesheet">
+
+  <style>
+    .codehilite {
+      padding: 0;
+    }
+
+    /* for block of numbers */
+    .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      text-align: center;
+      color: #ccc;
+      border-right: 1px solid #CCC;
+      vertical-align: top;
+      padding-right: 5px;
+    }
+
+    .hljs-ln-n {
+      width: 30px;
+    }
+
+    /* for block of code */
+    .hljs-ln .hljs-ln-code {
+      padding-left: 10px;
+      white-space: pre;
+    }
+  </style>
+    {% endblock %}
+{% block main_content %}
+            <main class="col-md-12">
+                <article class="post {{ post.pk }}">
+                    <header class="entry-header">
+                        <h1 class="entry-title">{{ post.title }}</h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="{% url 'blog:category' post.category.name %}">{{ post.category.name }}</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
+                            <span class="post-author"><a href="#">{{ post.author }}</a></span>
+                            <span class="comments-link"><a href="#comment-area">{{ post.comment_set.count }} 评论</a></span>
+                            <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                    {{ post.body|safe }}
+                    </div>
+                </article>
+                <section class="comment-area" id="comment-area">
+                    <hr>
+                    <h3>发表评论</h3>
+                    {% show_comment_form post %}
+                    <div class="comment-list-panel">
+                        {% show_comments post %}
+                    </div>
+                </section>
+            </main>
+{% endblock %}
+{% block aside %}
+
+{% endblock %}
+
+    {% block ext_js %}
+  <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="https://cdn.bootcss.com/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+  </script>
+    {% endblock %}
+
