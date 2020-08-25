@@ -13,7 +13,7 @@ back = os.path.dirname
 BASE_DIR = back(back(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 if __name__ == '__main__':
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myblog.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myblog.settings.local")
     django.setup()
 
     from blog.models import Category, Post, Tag
